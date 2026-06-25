@@ -1,0 +1,69 @@
+import random
+
+# statistiques
+parties_gagnées = 0
+parties_perdues = 0
+parties_totales = 0
+
+while True :
+    # Issues de la partie
+    gagner = False
+    perdu = False
+    # nombre de tentatives
+    tentatives = 10
+    
+    # choix du niveau de difficulté
+    niveau = input("a)Facile : 1-50\nb)Normal : 1-100\nc)Difficile : 1-1000\nChoisis une lettre (a,b ou c)")
+
+    # choix du nombre mystère en fonction du niveau
+    if niveau == "a":
+        nombre_mystere = random.randint(1, 50)
+    elif niveau == "b":
+        nombre_mystere = random.randint(1, 100)
+    else:
+        nombre_mystere = random.randint(1, 1000)
+    
+    # message du bot
+    print("J'ai choisi un nombre. A vous de le déviner")
+
+    # boucle du jeu
+    while tentatives > 0 and gagner == False:
+        # au tour du joueur de déviner
+        nombre_joueur = int(input("Votre proposition :"))
+
+        # vérification du nombre du joueur
+        if nombre_joueur > nombre_mystere:
+            print("Trop grand")
+            tentatives -= 1
+            print("%s tentative(s) restante(s)" %(tentatives))
+            continue
+        elif nombre_joueur < nombre_mystere:
+            print("Trop petit")
+            tentatives -= 1
+            print("%s tentative(s) restante(s)" %(tentatives))
+        elif nombre_joueur == nombre_mystere:
+            tentatives += 1
+            gagner = True
+            print("Bravo ! Vous avez trouvé le bon nombre en %s tentatives" %(12 - tentatives))
+            parties_totales += 1
+            parties_gagnées += 1
+            print("parties_gagnées = %s\nparties_perdues = %s\nparties_totales = %s" %(parties_gagnées, parties_perdues, parties_totales))
+
+    # vérification des tentatives restantes
+    while tentatives == 0 and perdu == False:
+        print("Vous avez perdu !")
+        perdu = True
+        parties_perdues += 1
+        parties_totales += 1
+        # affichage du nombre mystère
+        print("Le bon nombre était : %s" %(nombre_mystere))
+        # affichage des statistiques
+        print("parties_gagnées = %s\nparties_perdues = %s\nparties_totales = %s" %(parties_gagnées, parties_perdues, parties_totales))
+    
+    # demander une nouvelle partie au joueur
+    nouvelle_partie = input("Voulez-vous recommencer la partier (Oui/Non)")  
+    # Analyser la réponse du joueur  
+    if nouvelle_partie == "Oui":
+        continue
+    else:
+        break
